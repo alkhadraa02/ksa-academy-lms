@@ -1,0 +1,116 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+
+  --color-canvas: #f6f8f9;
+  --color-surface: #ffffff;
+  --color-ink: #14202b;
+  --color-muted: #4a5866;
+  --color-brand: #0f6b5c;
+  --color-brand-strong: #0a5246;
+  --color-brand-ink: #ffffff;
+  --color-brand-soft: #e2f2ee;
+  --color-accent: #9a4a07;
+  --color-accent-soft: #fdf0e0;
+  --color-line: #d5dce2;
+  --color-danger: #b42318;
+  --color-danger-soft: #fdeceb;
+  --color-ok: #17663a;
+  --color-ok-soft: #e4f5ea;
+  --color-warn: #8a4b08;
+  --color-warn-soft: #fdf0d9;
+}
+
+html {
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-brand);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-brand px-4 text-base font-semibold text-brand-ink transition-colors hover:bg-brand-strong disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-secondary {
+    @apply border border-line bg-surface text-ink hover:bg-brand-soft;
+  }
+  .btn-danger {
+    @apply bg-danger text-brand-ink hover:bg-danger;
+  }
+  .btn-sm {
+    @apply min-h-9 px-3 text-sm;
+  }
+  .btn-icon {
+    @apply min-h-11 min-w-11 px-0;
+  }
+  .input {
+    @apply min-h-11 w-full rounded-lg border border-line bg-surface px-3 text-base text-ink placeholder:text-muted;
+  }
+  textarea.input {
+    @apply py-2;
+  }
+  .label {
+    @apply mb-1 block text-sm font-semibold text-ink;
+  }
+  .card {
+    @apply rounded-xl border border-line bg-surface p-5;
+  }
+  .badge {
+    @apply inline-flex items-center rounded-full bg-brand-soft px-3 py-0.5 text-sm font-semibold text-brand-strong;
+  }
+  .badge-warn {
+    @apply bg-warn-soft text-warn;
+  }
+  .badge-danger {
+    @apply bg-danger-soft text-danger;
+  }
+  .badge-ok {
+    @apply bg-ok-soft text-ok;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+  .table-wrap {
+    @apply w-full overflow-x-auto rounded-xl border border-line bg-surface;
+  }
+  .table {
+    @apply w-full min-w-[34rem] border-collapse text-start text-sm;
+  }
+  .table th {
+    @apply bg-canvas px-4 py-3 text-start font-semibold text-ink;
+  }
+  .table td {
+    @apply border-t border-line px-4 py-3 align-top;
+  }
+}
+
+.prose-lesson {
+  white-space: pre-line;
+  line-height: 2;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #ffffff;
+  }
+  @page {
+    size: A4 landscape;
+    margin: 12mm;
+  }
+}
