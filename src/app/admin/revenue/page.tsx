@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { revenueReport } from "@/lib/services";
 import { formatPrice } from "@/lib/format";
+import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "تقرير الإيرادات" };
 
 export default async function RevenuePage() {
+  await requireAdmin();
   const r = await revenueReport();
   const max = Math.max(1, ...r.byMonth.map((m) => m.amount));
   const stats = [

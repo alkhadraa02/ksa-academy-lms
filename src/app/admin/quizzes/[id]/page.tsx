@@ -6,12 +6,14 @@ import { parseOptions } from "@/lib/format";
 import { ApiForm } from "@/components/ApiForm";
 import { Field } from "@/components/Field";
 import { MoveButtons } from "@/components/MoveButtons";
+import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "منشئ الاختبار" };
 
 const correctOptions = [0, 1, 2, 3, 4, 5].map((i) => ({ value: String(i), label: `الخيار ${i + 1}` }));
 
 export default async function QuizBuilder({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdmin();
   const { id } = await params;
   const quiz = await prisma.quiz.findUnique({
     where: { id },

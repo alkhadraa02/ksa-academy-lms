@@ -7,10 +7,12 @@ import { CourseForm } from "@/components/CourseForm";
 import { Field } from "@/components/Field";
 import { LessonForm } from "@/components/LessonForm";
 import { MoveButtons } from "@/components/MoveButtons";
+import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "تحرير الدورة" };
 
 export default async function EditCoursePage({ params }: { params: Promise<{ id: string }> }) {
+  await requireAdmin();
   const { id } = await params;
   const course = await prisma.course.findUnique({
     where: { id },

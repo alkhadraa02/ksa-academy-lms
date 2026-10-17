@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { formatDate } from "@/lib/format";
+import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "الطلاب" };
 
 export default async function AdminStudents() {
+  await requireAdmin();
   const students = await prisma.user.findMany({
     where: { role: "STUDENT" },
     orderBy: { createdAt: "desc" },

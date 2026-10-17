@@ -3,10 +3,12 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { formatPrice } from "@/lib/format";
 import { ApiForm } from "@/components/ApiForm";
+import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "الدورات" };
 
 export default async function AdminCourses() {
+  await requireAdmin();
   const courses = await prisma.course.findMany({
     orderBy: { createdAt: "desc" },
     include: { category: true, _count: { select: { enrollments: true, sections: true } } },

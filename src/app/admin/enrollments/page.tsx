@@ -2,10 +2,12 @@ import type { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { ENROLLMENT_LABEL, formatDate, formatPrice } from "@/lib/format";
 import { ApiForm } from "@/components/ApiForm";
+import { requireAdmin } from "@/lib/auth";
 
 export const metadata: Metadata = { title: "طلبات الالتحاق" };
 
 export default async function AdminEnrollments() {
+  await requireAdmin();
   const rows = await prisma.enrollment.findMany({
     orderBy: [{ createdAt: "desc" }],
     include: { user: { select: { name: true, email: true } }, course: { select: { title: true } } },

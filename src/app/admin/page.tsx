@@ -2,8 +2,10 @@ import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { revenueReport } from "@/lib/services";
 import { formatPrice } from "@/lib/format";
+import { requireAdmin } from "@/lib/auth";
 
 export default async function AdminHome() {
+  await requireAdmin();
   const [courses, students, pending, active, revenue] = await Promise.all([
     prisma.course.count(),
     prisma.user.count({ where: { role: "STUDENT" } }),
